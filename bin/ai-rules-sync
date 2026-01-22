@@ -79,4 +79,15 @@ done <<< "$FILES"   # <-- quoted
 
 find "${REPO_ROOT}" -maxdepth 1 -type f -name "*.sh" -exec chmod +x {} \; || true
 
-echo "ai-rules-sync: synced '${PROFILE}' from ${OWNER_REPO}@${REF}"
+echo "ai-rules-sync: Synced custom AI files for '${PROFILE}' profile"
+
+# Install skills
+npx skills add https://github.com/vercel-labs/agent-skills --skill vercel-react-best-practices
+npx skills add https://github.com/vercel-labs/agent-skills --skill web-design-guidelines
+npx skills add https://github.com/remotion-dev/skills --skill remotion-best-practices
+npx skills add https://github.com/anthropics/skills --skill frontend-design
+npx skills add https://github.com/vercel-labs/agent-browser --skill agent-browser
+npx skills add https://github.com/supabase/agent-skills --skill supabase-postgres-best-practices
+npx skills add https://github.com/stripe/ai --skill stripe-best-practices
+
+echo "ai-rules-sync: Installed skills for '${PROFILE}' profile"

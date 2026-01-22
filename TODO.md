@@ -1,3 +1,7 @@
+# TODO:
+
+1. ...
+
 # AI things to look into
 
 1. https://skills.sh/
