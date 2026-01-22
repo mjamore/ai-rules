@@ -3,6 +3,7 @@
 This file is the **source of truth** for how AI should work in this repository.
 
 **Priority**
+
 1. Follow this file first.
 2. If another doc conflicts with this file, follow **AGENTS.md**.
 3. Prefer small, safe, incremental changes.
@@ -20,6 +21,7 @@ This file is the **source of truth** for how AI should work in this repository.
 ## Code organization
 
 ### Constants
+
 - Place constants in a shared file/module (avoid duplicating literals across files).
 
 ---
@@ -56,6 +58,7 @@ This file is the **source of truth** for how AI should work in this repository.
 ## Automated tests
 
 ### General testing rules
+
 - Write the **minimal** tests that cover the most important behavior.
 - Before adding a new test:
   - Prefer extending an existing test if it remains readable and focused.
@@ -63,21 +66,26 @@ This file is the **source of truth** for how AI should work in this repository.
 - **Never** create snapshot tests.
 
 ### Vitest (unit tests)
+
 - Co-locate unit tests next to the source file.
 - Use `*.test.ts` naming.
 
 ### Playwright (e2e)
+
 Two categories:
 
-1) **pages**
+1. **pages**
+
 - Validate a page loads with expected elements.
 - Validate basic interactions.
 
-2) **workflows**
+2. **workflows**
+
 - Validate critical user workflows that often span multiple pages.
 - These are the most important tests for confidence.
 
 Additional rules:
+
 - Never write fragile tests against styling/layout.
 - Prefer fewer, comprehensive tests over many tiny tests.
 
@@ -87,4 +95,4 @@ Additional rules:
 
 - Use `agent-browser` for web automation.
 
-See: `.claude/skills/browser-automation/SKILL.md` for the workflow and commands.
+See: `.claude/skills/agent-browser/SKILL.md` for the workflow and commands.

@@ -5,3 +5,4 @@
 2. Claude skills
 3. Gemini CLI
 4. Automaker
+5. https://github.com/glittercowboy/get-shit-done
