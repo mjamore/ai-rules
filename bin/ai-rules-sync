@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROFILE="${1:-web}"
+
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+if [[ -z "${REPO_ROOT}" ]]; then
+  echo "Error: ai-rules-sync must be run inside a git repository." >&2
+  exit 1
+fi
+
+OWNER_REPO="mjamore/ai-rules"
+REF="main"
+
+API_BASE="https://api.github.com"
+RAW_BASE="https://raw.githubusercontent.com/${OWNER_REPO}/${REF}"
+TREE_URL="${API_BASE}/repos/${OWNER_REPO}/git/trees/${REF}?recursive=1"
+
+AUTH_HEADER=()
+if [[ -n "${GITHUB_TOKEN:-}" ]]; then
+  AUTH_HEADER=(-H "Authorization: Bearer ${GITHUB_TOKEN}")
+fi
+
+TREE_JSON="$(curl -fsSL "${AUTH_HEADER[@]}" "${TREE_URL}")"
+
+# Extract file paths under profiles/<profile>/
+FILES="$(PROFILE="${PROFILE}" TREE_JSON="${TREE_JSON}" python3 - <<'PY'
+import json, os
+profile=os.environ["PROFILE"]
+data=json.loads(os.environ["TREE_JSON"])
+prefix=f"profiles/{profile}/"
+paths=[]
+for item in data.get("tree", []):
+    if item.get("type")!="blob":
+        continue
+    p=item.get("path","")
+    if p.startswith(prefix):
+        paths.append(p)
+print("\n".join(paths))  # <-- real newlines
+PY
+)"
+
+if [[ -z "${FILES}" ]]; then
+  echo "Error: no files found for profile '${PROFILE}' in ${OWNER_REPO}@${REF}." >&2
+  exit 1
+fi
+
+mkdir -p "${REPO_ROOT}/.github/prompts" "${REPO_ROOT}/.github" "${REPO_ROOT}/.claude/skills"
+
+while IFS= read -r SRC_PATH; do
+  [[ -z "${SRC_PATH}" ]] && continue
+
+  REL="${SRC_PATH#profiles/${PROFILE}/}"
+
+  DEST=""
+  case "${REL}" in
+    instructions/AGENTS.md) DEST="AGENTS.md" ;;
+    instructions/CLAUDE.md) DEST="CLAUDE.md" ;;
+    instructions/copilot-instructions.md) DEST=".github/copilot-instructions.md" ;;
+    prompts/*) DEST=".github/${REL}" ;;
+    claude/skills/*) DEST=".claude/${REL#claude/}" ;;
+    scripts/*) DEST="${REL#scripts/}" ;;
+    *) continue ;;
+  esac
+
+  # Never overwrite local-only Claude memory (and don't create it)
+  if [[ "${DEST}" == "CLAUDE.local.md" ]]; then
+    continue
+  fi
+
+  URL="${RAW_BASE}/${SRC_PATH}"
+  OUT="${REPO_ROOT}/${DEST}"
+  mkdir -p "$(dirname "${OUT}")"
+
+  echo "→ ${DEST}"
+  curl -fsSL "${URL}" -o "${OUT}"
+
+done <<< "$FILES"   # <-- quoted
+
+find "${REPO_ROOT}" -maxdepth 1 -type f -name "*.sh" -exec chmod +x {} \; || true
+
+echo "ai-rules-sync: synced '${PROFILE}' from ${OWNER_REPO}@${REF}"

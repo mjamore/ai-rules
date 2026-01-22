@@ -1,31 +1,44 @@
 # ai-rules
 
-A source-of-truth repository for AI coding rules, prompts, and Claude Code skills.
+My single source-of-truth for all my AI coding rules, Copilot prompts, and Claude Code skills — organized by profile (web/mobile).
 
-## Repo structure
+This repo contains a script intended to be installed on your machine's `$PATH`:
 
-- `profiles/web/` – web project rules/prompts/skills/scripts
-- `profiles/mobile/` – placeholder for future mobile rules/prompts/skills/scripts
-- `bin/ai-install` – clone `ai-rules` into a target repo root and run an initial sync
-- `bin/ai-sync` – sync profile files into the target repo (overwrites)
+- `ai-rules-sync` — syncs the selected profile into the current git repo (overwrites)
 
-## Typical usage (in a target repo)
+## Install scripts on your machine
+
+Symlink into `/usr/local/bin` (or anywhere on PATH)
 
 ```bash
-# one-time (creates ./ai-rules in the repo)
-curl -fsSL <YOUR_RAW_URL_TO_ai-install> | bash -s -- --repo git@github.com:<you>/ai-rules.git --profile web
-
-# later, after updating ./ai-rules
-./ai-rules/bin/ai-sync web
+git clone git@github.com:mjamore/ai-rules.git ~/git/ai-rules
+sudo ln -sf ~/git/ai-rules/bin/ai-rules-sync  /usr/local/bin/ai-rules-sync
 ```
 
-> This template ships as a zip for initial setup. After you publish it to GitHub, use `ai-install` with `--repo`.
+Option B: add the repo `bin/` to your PATH
 
-## What gets synced into the target repo
+## Use in any target repo
 
-- `AGENTS.md` → repo root
-- `CLAUDE.md` → repo root (delegates to AGENTS.md)
-- `.github/copilot-instructions.md` → delegates to AGENTS.md
-- `.github/prompts/*.prompt.md` → Copilot prompt files
-- `.claude/skills/*` → Claude Code skills
-- project scripts (e.g. `ralph-once.sh`) → repo root
+```bash
+cd /path/to/your/project
+ai-rules-sync web
+```
+
+## Configuration
+
+Environment variables (optional):
+
+- `GITHUB_TOKEN` (optional) — increases GitHub API rate limits
+
+## What gets written into the target repo
+
+From `profiles/<profile>/...`:
+
+- `instructions/AGENTS.md` → `./AGENTS.md`
+- `instructions/CLAUDE.md` → `./CLAUDE.md`
+- `instructions/copilot-instructions.md` → `./.github/copilot-instructions.md`
+- `prompts/*` → `./.github/prompts/*`
+- `claude/skills/*` → `./.claude/skills/*` (all files preserved)
+- `scripts/*` → repo root `./*` (e.g. `ralph-once.sh`)
+
+`CLAUDE.local.md` in the target repo is never overwritten.
