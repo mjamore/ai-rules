@@ -43,6 +43,13 @@ This file is the **source of truth** for how AI should work in this repository.
 
 ---
 
+## Zod
+
+- Treat Zod as a first class citizen. Value strong typing.
+- Use `lib/schemas.ts` and `lib/env.ts`.
+
+---
+
 ## Supabase / Vercel / shadcn
 
 - Supabase: MCP server may be available.
