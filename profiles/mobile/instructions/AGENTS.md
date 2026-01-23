@@ -61,4 +61,4 @@ This file is the **source of truth** for how AI should work in this repository.
 
 ### Maestro
 
-- All core functionality must be covered by Maestro tests
+- All core functionality must be covered by Maestro tests. See the expo-testing-with-maestro skill in the `.agents/skills` directory for implementation details.

@@ -45,7 +45,7 @@ if [[ -z "${FILES}" ]]; then
   exit 1
 fi
 
-mkdir -p "${REPO_ROOT}/.github/prompts" "${REPO_ROOT}/.github" "${REPO_ROOT}/.claude/skills"
+mkdir -p "${REPO_ROOT}/.github/prompts" "${REPO_ROOT}/.github" "${REPO_ROOT}/.agents/skills"
 
 while IFS= read -r SRC_PATH; do
   [[ -z "${SRC_PATH}" ]] && continue
@@ -58,7 +58,7 @@ while IFS= read -r SRC_PATH; do
     instructions/CLAUDE.md) DEST="CLAUDE.md" ;;
     instructions/copilot-instructions.md) DEST=".github/copilot-instructions.md" ;;
     prompts/*) DEST=".github/${REL}" ;;
-    claude/skills/*) DEST=".claude/${REL#claude/}" ;;
+    skills/*) DEST=".agents/skills/${REL#skills/}" ;;
     scripts/*) DEST="${REL#scripts/}" ;;
     *) continue ;;
   esac
