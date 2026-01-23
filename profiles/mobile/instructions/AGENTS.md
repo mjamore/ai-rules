@@ -43,29 +43,10 @@ This file is the **source of truth** for how AI should work in this repository.
 
 ---
 
-## Next.js
-
-- Follow Next.js 16 conventions.
-- Use `proxy.ts` instead of `middleware.ts` (when applicable in this codebase).
-
----
-
 ## Zod
 
 - Treat Zod as a first class citizen. Value strong typing.
 - Use `lib/schemas.ts` and `lib/env.ts`.
-
----
-
-## Supabase / Vercel / shadcn
-
-- Supabase: MCP server may be available.
-- Vercel: MCP server may be available.
-- shadcn/ui:
-  - Use shadcn/ui components where reasonable.
-  - MCP server may be available.
-
-> If MCP tooling is unavailable in your current environment, proceed using docs + local repo context.
 
 ---
 
@@ -77,36 +58,7 @@ This file is the **source of truth** for how AI should work in this repository.
 - Before adding a new test:
   - Prefer extending an existing test if it remains readable and focused.
   - Add a new test only when it improves clarity or separation of concerns.
-- **Never** create snapshot tests.
 
-### Vitest (unit tests)
+### Maestro
 
-- Co-locate unit tests next to the source file.
-- Use `*.test.ts` naming.
-
-### Playwright (e2e)
-
-Two categories:
-
-1. **pages**
-
-- Validate a page loads with expected elements.
-- Validate basic interactions.
-
-2. **workflows**
-
-- Validate critical user workflows that often span multiple pages.
-- These are the most important tests for confidence.
-
-Additional rules:
-
-- Never write fragile tests against styling/layout.
-- Prefer fewer, comprehensive tests over many tiny tests.
-
----
-
-## Browser automation
-
-- Use `agent-browser` for web automation.
-
-See: `.claude/skills/agent-browser/SKILL.md` for the workflow and commands.
+- All core functionality must be covered by Maestro tests
