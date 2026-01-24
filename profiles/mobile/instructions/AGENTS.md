@@ -10,10 +10,37 @@ This file is the **source of truth** for how AI should work in this repository.
 
 ---
 
+## Skills
+
+- You have access to various skills relevant to iOS development and testing practices. These are located in `.agents/skills`.
+- Always consult these skills before making changes related to their domain.
+
+---
+
 ## General coding practices
 
 - Minimize nested conditions as much as possible.
 - In functions, perform early checks for negative conditions and use early returns to simplify logic.
+- Use guard statements and early returns.
+- Minimize nested conditions as much as possible.
+- Keep file sizes small and manageable. Don't be afraid to break components down into smaller pieces.
+- Never duplicate code. Always abstract repeated logic into reusable functions or components.
+- Place constants in a shared file/module (avoid duplicating literals across files).
+- Keep application state centralized and well-organized using SwiftData. Avoid mixing state/data management and UI logic.
+
+---
+
+## iOS Development
+
+- Follow Swift and SwiftUI best practices. Keep code as simple as possible.
+- Use SwiftData for data modeling and persistence.
+- Prefer accessibility identifiers for UI elements to facilitate testing.
+
+### UI Design
+
+- Follow Human Interface Guidelines (HIG) for iOS.
+- All UI and user interactions should feel native to iOS.
+- Use the latest Apple iOS design, specifically Liquid Glass.
 
 ---
 
@@ -25,40 +52,15 @@ This file is the **source of truth** for how AI should work in this repository.
 
 ---
 
-## Code organization
-
-### Constants
-
-- Place constants in a shared file/module (avoid duplicating literals across files).
-
----
-
-## React.js
-
-- Avoid `useEffect` unless absolutely necessary.
-  - If you must use it, keep it small, explain why, and ensure cleanup is correct.
-- Prefer **Server Components**.
-- Only use **Client Components** when client interaction is required.
-  - Keep Client Components as far down the DOM tree as possible.
-
----
-
-## Zod
-
-- Treat Zod as a first class citizen. Value strong typing.
-- Use `lib/schemas.ts` and `lib/env.ts`.
-
----
-
-## Automated tests
+## Automated testing
 
 ### General testing rules
 
-- Write the **minimal** tests that cover the most important behavior.
+- All critical user workflows MUST be covered by automated tests.
 - Before adding a new test:
   - Prefer extending an existing test if it remains readable and focused.
   - Add a new test only when it improves clarity or separation of concerns.
 
-### Maestro
+### XCUIAutomation
 
-- All core functionality must be covered by Maestro tests. See the expo-testing-with-maestro skill in the `.agents/skills` directory for implementation details.
+- All core functionality must be covered by XCUIAutomation tests. See the XCUIAutomation skill in the `.agents/skills` directory for implementation details.

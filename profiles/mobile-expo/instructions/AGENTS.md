@@ -1,0 +1,64 @@
+# AGENTS.md — Project Rules (Source of Truth)
+
+This file is the **source of truth** for how AI should work in this repository.
+
+**Priority**
+
+1. Follow this file first.
+2. If another doc conflicts with this file, follow **AGENTS.md**.
+3. Prefer small, safe, incremental changes.
+
+---
+
+## General coding practices
+
+- Minimize nested conditions as much as possible.
+- In functions, perform early checks for negative conditions and use early returns to simplify logic.
+
+---
+
+## Git workflow
+
+- Use git **terminal commands** for basic operations (branching, staging, committing).
+- Use the **GitHub CLI** when necessary (PRs, releases, etc.).
+- Favor basic CLI tools over MCP servers for git operations.
+
+---
+
+## Code organization
+
+### Constants
+
+- Place constants in a shared file/module (avoid duplicating literals across files).
+
+---
+
+## React.js
+
+- Avoid `useEffect` unless absolutely necessary.
+  - If you must use it, keep it small, explain why, and ensure cleanup is correct.
+- Prefer **Server Components**.
+- Only use **Client Components** when client interaction is required.
+  - Keep Client Components as far down the DOM tree as possible.
+
+---
+
+## Zod
+
+- Treat Zod as a first class citizen. Value strong typing.
+- Use `lib/schemas.ts` and `lib/env.ts`.
+
+---
+
+## Automated tests
+
+### General testing rules
+
+- Write the **minimal** tests that cover the most important behavior.
+- Before adding a new test:
+  - Prefer extending an existing test if it remains readable and focused.
+  - Add a new test only when it improves clarity or separation of concerns.
+
+### Maestro
+
+- All core functionality must be covered by Maestro tests. See the expo-testing-with-maestro skill in the `.agents/skills` directory for implementation details.

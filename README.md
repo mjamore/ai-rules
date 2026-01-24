@@ -1,15 +1,15 @@
 # ai-rules
 
-My single source-of-truth for all my AI coding rules, Copilot prompts, and Claude Code skills — organized by profile (web/mobile).
+My single source-of-truth for all my AI coding rules, Copilot prompts, and Claude Code skills — organized by profile (web/mobile/mobile-expo).
 
 This repo contains a script intended to be installed in the `$PATH`:
 
-- `ai-rules-sync` — syncs the selected profile (web/mobile) into the current git repo (overwrites)
+- `ai-rules-sync` — syncs the selected profile (web/mobile/mobile-expo) into the current git repo (overwrites)
 
 This script does 2 things:
 
 1. Pulls my personal AI files, from `profiles/...`, such as AGENT.md, custom prompts, and custom scripts for agentic coding.
-2. Pulls skills (web/mobile) for all AI providers (Claude, Copilot, Cursor, etc.) using `npx skills add ...`.
+2. Pulls skills (web/mobile/mobile-expo) for all AI providers (Claude, Copilot, Cursor, etc.) using `npx skills add ...`.
 
 After running this script, I should have my perfect AI setup with all the prompts, skills, etc. and my custom AGENTS.md file.
 

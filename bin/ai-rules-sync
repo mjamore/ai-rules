@@ -92,6 +92,13 @@ if [[ "${PROFILE}" == "web" ]]; then
   npx skills add https://github.com/stripe/ai --skill stripe-best-practices -y
   echo "ai-rules-sync: Installed web skills for '${PROFILE}' profile"
 elif [[ "${PROFILE}" == "mobile" ]]; then
+  npx skills add https://github.com/dimillian/skills --skill swiftui-ui-patterns -y
+  npx skills add https://github.com/dimillian/skills --skill swiftui-liquid-glass -y
+  npx skills add https://github.com/dimillian/skills --skill swiftui-performance-audit -y
+  npx skills add https://github.com/dimillian/skills --skill swiftui-view-refactor -y
+  npx skills add https://github.com/dimillian/skills --skill swift-concurrency-expert -y
+  echo "ai-rules-sync: Installed mobile skills for '${PROFILE}' profile"
+elif [[ "${PROFILE}" == "mobile-expo" ]]; then
   npx skills add https://github.com/expo/skills --skill building-native-ui -y
   npx skills add https://github.com/expo/skills --skill upgrading-expo -y
   npx skills add https://github.com/expo/skills --skill native-data-fetching -y
@@ -101,7 +108,7 @@ elif [[ "${PROFILE}" == "mobile" ]]; then
   npx skills add https://github.com/expo/skills --skill expo-tailwind-setup -y
   npx skills add https://github.com/expo/skills --skill expo-cicd-workflows -y
   npx skills add https://github.com/dimillian/skills --skill swiftui-liquid-glass -y
-  echo "ai-rules-sync: Installed mobile skills for '${PROFILE}' profile"
+  echo "ai-rules-sync: Installed mobile-expo skills for '${PROFILE}' profile"
 else
   echo "ai-rules-sync: No skills configured for '${PROFILE}' profile"
 fi
