@@ -10,6 +10,13 @@ This file is the **source of truth** for how AI should work in this repository.
 
 ---
 
+## Plan Mode
+
+- Make the plan extremely concise. Sacrifice grammar for the sake of concision.
+- At the end of each plan, give me a list of unresolved questions to answer, if any.
+
+---
+
 ## General coding practices
 
 - Minimize nested conditions as much as possible.
